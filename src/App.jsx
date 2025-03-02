@@ -1,99 +1,54 @@
-import PieChart from "./charts/PieChart";
-import LineChart from "./charts/LineChart";
+import { useState } from "react";
 import "./App.css";
+import Widget from "./widget/Widget";
+import WidgetForm from "./form/WidgetForm";
 
 function App() {
-  const chartsData = [
+  const [charts, setCharts] = useState([]);
+
+  const headers = [
     {
-      type: "Pie Chart",
-      title: "Vote Distribution",
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-      datasets: [
-        {
-          label: "Votes",
-          data: [12, 19, 3, 5, 2],
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.6)",
-            "rgba(54, 162, 235, 0.6)",
-            "rgba(255, 206, 86, 0.6)",
-            "rgba(75, 192, 192, 0.6)",
-            "rgba(153, 102, 255, 0.6)",
-          ],
-          borderColor: ["#fff"],
-          borderWidth: 1,
-        },
-      ],
-      position: "top",
-      size: {
-        width: "450px",
-        height: "300px",
-      },
+      label: "Votes",
+      value: 1,
     },
     {
-      type: "Line Chart",
-      title: "Monthly Sales",
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-      datasets: [
-        {
-          label: "Sales",
-          data: [30, 45, 60, 40, 70],
-          borderColor: "blue",
-          backgroundColor: ["rgba(0, 0, 255, 0.2)"],
-        },
-      ],
-      position: "top",
-      size: {
-        width: "450px",
-        height: "300px",
-      },
-    },
-    {
-      type: "Line Chart",
-      title: "Monthly Revenue",
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-      datasets: [
-        {
-          label: "Sales",
-          data: [30, 40, 45, 60, 70],
-          borderColor: "green",
-          backgroundColor: ["rgba(0, 0, 255, 0.2)"],
-        },
-      ],
-      position: "top",
-      size: {
-        width: "450px",
-        height: "300px",
-      },
+      label: "Sales",
+      value: 2,
     },
   ];
 
-  const charts = chartsData.map((chart, i) => {
-    if (chart.type === "Pie Chart") {
-      return (
-        <PieChart
-          key={i}
-          title={chart.title}
-          labels={chart.labels}
-          datasets={chart.datasets}
-          position={chart.position}
-          size={chart.size}
-        />
-      );
-    } else if (chart.type === "Line Chart") {
-      return (
-        <LineChart
-          key={i}
-          title={chart.title}
-          labels={chart.labels}
-          datasets={chart.datasets}
-          position={chart.position}
-          size={chart.size}
-        />
-      );
-    }
-  });
+  const chartTypes = [
+    {
+      label: "Pie-Chart",
+      value: "piechart",
+    },
+    {
+      label: "Line-Chart",
+      value: "linechart",
+    },
+  ];
 
-  return <div style={{ display: "flex" }}>{charts}</div>;
+  const handleSubmit = () => {
+    let cred = {
+      title: document.getElementById("Title").value,
+      head: document.getElementById("Select field").value,
+      chartType: document.getElementById("Chart").value,
+    };
+    if (cred.title && cred.head && cred.chartType) {
+      setCharts([...charts, cred]);
+    }
+  };
+
+  return (
+    <div>
+      <WidgetForm
+        headers={headers}
+        chartTypes={chartTypes}
+        handleSubmit={handleSubmit}
+      />
+      <Widget charts={charts} />
+    </div>
+  );
 }
 
 export default App;

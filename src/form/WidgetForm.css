@@ -1,0 +1,28 @@
+.add-widget {
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 0.375rem 1.25rem;
+}
+
+.overlay-style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-style {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
